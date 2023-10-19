@@ -1,0 +1,49 @@
+.settingBlock {
+    border: 2px solid aqua;
+    padding: 20px 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.settingBlock p {
+    color: #fff;
+    font-size: 25px;
+    border: 2px solid aqua;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.settingBlock input {
+    height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.settingBlock button {
+    margin: 0 auto;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    height: 40px;
+    transition: .2s linear;
+    background-color: aqua;
+}
+
+.settingBlock button:hover {
+    cursor: pointer;
+    background-color: #09b0b0;
+}
+
+.minValueError {
+    background-color: red;
+}
+
+.maxValueError {
+    background-color: red
+}
