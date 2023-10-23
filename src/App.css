@@ -63,6 +63,7 @@
     justify-content: space-around;
     background-color: #315aaf;
     font-size: 20px;
+    color: #ffffff;
 }
 
 .button_section button:disabled {

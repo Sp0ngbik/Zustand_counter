@@ -4,27 +4,19 @@ import Button from "./components/Button/Button";
 import Setting from "./components/Setting/Setting";
 import {useAppDispatch, useAppSelector} from "./components/hooks/hooks";
 import {incrementValueAC, resetValueAC} from "./components/redux/reducers/counterReducer";
-
-export type T_CounterSettings = {
-    counter: number,
-    minValue: number,
-    maxValue: number,
-    informMessage: string,
-    inSettingStatus: boolean
-}
-
 function App() {
     const counterState = useAppSelector(state => state.counterReducer)
+    const settingState = useAppSelector(state => state.settingsReducer)
     const dispatch = useAppDispatch()
-    const onMaxValue = () => counterState.maxValue === counterState.counter
+    const onMaxValue = () => settingState.maxValue === counterState.counter
     const increaseValue = () => {
         dispatch(incrementValueAC())
     }
     const resetValue = () => {
-        dispatch(resetValueAC())
+        dispatch(resetValueAC(settingState.minValue))
     }
     const valueValidator = () => {
-        return counterState.minValue < 0 || counterState.minValue >= counterState.maxValue
+        return settingState.minValue < 0 || settingState.minValue >= settingState.maxValue
     }
     return (
         <div className="App">
@@ -33,15 +25,15 @@ function App() {
                 />
             </div>
             <div className='counter_wrapper'>
-                {counterState.informMessage ?
+                {settingState.informMessage ?
                     <div
-                        className={valueValidator() ? 'errorMessage' : 'informMessage'}>{counterState.informMessage}</div> :
+                        className={valueValidator() ? 'errorMessage' : 'informMessage'}>{settingState.informMessage}</div> :
                     <div
-                        className={counterState.maxValue === counterState.counter ? 'counterError' : 'counterStyle'}>{counterState.counter}</div>}
+                        className={settingState.maxValue === counterState.counter ? 'counterError' : 'counterStyle'}>{counterState.counter}</div>}
                 <div className='button_section'>
-                    <Button title={'Inc'} inSettingMode={counterState.inSettingStatus} disabled={onMaxValue}
+                    <Button title={'Inc'} inSettingMode={settingState.inSettingStatus} disabled={onMaxValue}
                             callback={increaseValue}/>
-                    <Button title={'Reset'} disabled={() => counterState.inSettingStatus} callback={resetValue}/>
+                    <Button title={'Reset'} disabled={() => settingState.inSettingStatus} callback={resetValue}/>
                 </div>
             </div>
         </div>

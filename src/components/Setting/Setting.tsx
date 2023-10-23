@@ -2,27 +2,31 @@ import React, {ChangeEvent, useLayoutEffect} from 'react';
 import Button from "../Button/Button";
 import style from './setting.module.css'
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
+import {loadedCounterAC} from "../redux/reducers/counterReducer";
 import {
-    changeInformMessageAC, loadState,
+    changeInformMessageAC,
+    loadState,
     onChangeMaxValueAC,
     onChangeMinValueAC,
     onSettingModeAC,
-    saveState,
-} from "../redux/reducers/counterReducer";
+    saveState
+} from "../redux/reducers/settingsReducer";
 
 
 const Setting = () => {
     const dispatch = useAppDispatch()
+    const settingsState = useAppSelector(state => state.settingsReducer)
     useLayoutEffect(() => {
-            dispatch(loadState())
+       dispatch(loadState())
     }, [dispatch]);
-    const counterState = useAppSelector(state => state.counterReducer)
     const handleSave = () => {
-        dispatch(saveState(counterState))
+        console.log(settingsState)
+        dispatch(loadedCounterAC(settingsState.minValue))
+        dispatch(saveState(settingsState))
     }
 
     const valueValidator = () => {
-        return counterState.minValue < 0 || counterState.minValue >= counterState.maxValue
+        return settingsState.minValue < 0 || settingsState.minValue >= settingsState.maxValue
     }
 
     const maxValueConfigHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,14 +42,14 @@ const Setting = () => {
     return (
         <div className={style.settingBlock}>
             <p>Max Value: <input
-                className={counterState.minValue >= counterState.maxValue ? style.maxValueError : ''}
+                className={settingsState.minValue >= settingsState.maxValue ? style.maxValueError : ''}
                 type="number"
                 onClick={() => {
                     onCheckValidationText();
                     dispatch(onSettingModeAC())
                 }}
                 onChange={maxValueConfigHandler}
-                value={counterState.maxValue}/>
+                value={settingsState.maxValue}/>
             </p>
             <p>Min Value: <input
                 className={valueValidator() ? style.minValueError : ''}
@@ -55,9 +59,9 @@ const Setting = () => {
                     dispatch(onSettingModeAC())
                 }}
                 onChange={minValueConfigHandler}
-                value={counterState.minValue}/>
+                value={settingsState.minValue}/>
             </p>
-            <Button disabled={valueValidator} inSettingMode={!counterState.inSettingStatus}
+            <Button disabled={valueValidator} inSettingMode={!settingsState.inSettingStatus}
                     callback={handleSave}
                     title={'Set'}/>
         </div>
