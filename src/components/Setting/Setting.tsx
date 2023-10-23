@@ -1,10 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useLayoutEffect} from 'react';
 import Button from "../Button/Button";
 import style from './setting.module.css'
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {
-    changeInformMessageAC,
-    offSettingModeAC,
+    changeInformMessageAC, loadState,
     onChangeMaxValueAC,
     onChangeMinValueAC,
     onSettingModeAC,
@@ -13,18 +12,19 @@ import {
 
 
 const Setting = () => {
-    const counterState = useAppSelector(state => state.counterReducer)
     const dispatch = useAppDispatch()
+    useLayoutEffect(() => {
+            dispatch(loadState())
+    }, [dispatch]);
+    const counterState = useAppSelector(state => state.counterReducer)
     const handleSave = () => {
-        dispatch(offSettingModeAC())
         dispatch(saveState(counterState))
     }
+
     const valueValidator = () => {
         return counterState.minValue < 0 || counterState.minValue >= counterState.maxValue
     }
-    const setSettingValue = () => {
-        dispatch(offSettingModeAC())
-    }
+
     const maxValueConfigHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(onChangeMaxValueAC(Number(e.currentTarget.value)))
     }
@@ -57,7 +57,6 @@ const Setting = () => {
                 onChange={minValueConfigHandler}
                 value={counterState.minValue}/>
             </p>
-            {/*<button onClick={handleSave}>sdasd</button>*/}
             <Button disabled={valueValidator} inSettingMode={!counterState.inSettingStatus}
                     callback={handleSave}
                     title={'Set'}/>

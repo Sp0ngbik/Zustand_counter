@@ -1,10 +1,12 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
 import {counterReducer, T_MainCounterAction} from "./reducers/counterReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {settingsReducer} from "./reducers/settingsReducer";
 
 export const rootReducer = combineReducers(
     {
-        counterReducer: counterReducer
+        counterReducer: counterReducer,
+        settingsReducer: settingsReducer
     }
 )
 

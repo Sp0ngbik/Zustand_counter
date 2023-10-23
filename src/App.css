@@ -33,9 +33,11 @@
 .counter_wrapper div {
     font-size: 35px;
 }
-.informMessage{
+
+.informMessage {
     color: #ffffff;
 }
+
 .counterStyle {
     color: #fff;
 }
@@ -59,13 +61,22 @@
     border: none;
     transition: .2s linear;
     justify-content: space-around;
-    background-color: aqua;
+    background-color: #315aaf;
     font-size: 20px;
 }
 
+.button_section button:disabled {
+    background-color: black;
+}
+
 .button_section button:hover {
-    background-color: #09b0b0;
     cursor: pointer;
+    background-color: #096767;
+}
+
+.button_section button:disabled {
+    background-color: pink;
+    cursor: not-allowed;
 }
 
 .errorMessage {

@@ -32,12 +32,21 @@
     font-size: 20px;
     height: 40px;
     transition: .2s linear;
-    background-color: aqua;
+    background-color: #315aaf;
+}
+
+.settingBlock button:disabled {
+    background-color: black;
+}
+
+.settingBlock button:hover:disabled {
+    background-color: pink;
+    cursor: not-allowed;
 }
 
 .settingBlock button:hover {
     cursor: pointer;
-    background-color: #09b0b0;
+    background-color: #096767;
 }
 
 .minValueError {

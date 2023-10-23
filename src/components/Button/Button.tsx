@@ -9,7 +9,9 @@ type T_ButtonProps = {
 }
 const Button: FC<T_ButtonProps> = ({title, inSettingMode, callback, disabled}) => {
     return (
-        <button disabled={inSettingMode ? inSettingMode: disabled()} onClick={() => callback()}>{title}</button>
+        <button
+            disabled={inSettingMode ? inSettingMode: disabled()}
+            onClick={() => callback()}>{title}</button>
     );
 };
 
